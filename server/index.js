@@ -7,15 +7,15 @@ const path = require('path');
 const app = express();
 const port = 8080;
 app.use(express.json());
-
-const API_SERVICE_URL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/';
 dotenv.config();
 
 app.use(express.static('client/dist'));
 
 app.use('/atelier', createProxyMiddleware({
-  target: API_SERVICE_URL,
-  changeOrigin: true,
+  target: '/',
+  router: {
+    'localhost:8080/atelier': 'http://localhost:3000',
+  },
   pathRewrite: {
     atelier: '',
   },
